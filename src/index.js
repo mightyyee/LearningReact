@@ -25,7 +25,35 @@ class Post extends Component {
           },
           this.props.content //#F
         )
-      )
+      ),
+      this.props.children
+    );
+  }
+}
+
+class Comment extends Component {
+  render() {
+    return React.createElement(
+      "div",
+      {
+        className: "comment" //#C
+      },
+      React.createElement(
+        "h2",
+        {
+          className: "commentAuthor",
+          id: this.props.id
+        },
+        this.props.user, //#D
+        React.createElement(
+          "span",
+          {
+            className: "commentBody" //#E
+          },
+          this.props.content //#F
+        )
+      ),
+      this.props.children
     );
   }
 }
@@ -36,10 +64,30 @@ Post.propTypes = {
   id: PropTypes.number.isRequired //#G
 };
 
-const App = React.createElement(Post, {
+const subcommentElement = React.createElement(Comment, {
   id: 1, //#H
-  content: " said: This is a post!", //#H
-  user: "mark" //#H
+  content: " said: This is a sub-comment!", //#H
+  user: "alexander" //#H
 });
+
+const commentElement = React.createElement(
+  Comment,
+  {
+    id: 1, //#H
+    content: " said: This is a comment!", //#H
+    user: "andrew" //#H
+  },
+  subcommentElement
+);
+
+const App = React.createElement(
+  Post,
+  {
+    id: 1, //#H
+    content: " said: This is a post!", //#H
+    user: "mark" //#H
+  },
+  commentElement
+);
 
 render(App, node);
