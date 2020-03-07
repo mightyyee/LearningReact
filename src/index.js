@@ -89,5 +89,6 @@ const App = React.createElement(
   },
   commentElement
 );
+const component = render(App, node);
 
-render(App, node);
+console.log(component);
